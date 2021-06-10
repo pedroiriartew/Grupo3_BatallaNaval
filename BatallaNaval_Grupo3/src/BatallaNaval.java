@@ -60,7 +60,8 @@ public class BatallaNaval {
             System.out.println("Turno jugador 2"); // o bien ponemos el nombre
             missedShot = false;
 
-            while (!missedShot && !winner) {
+            while (!missedShot && !winner)//Acá la condición cambia porque es necesario saber si el jugador1 ganó
+            {
                 //missedShot = playerMissedShot(player2);
 
                 // if (!missedShot && player1.flota == 0) {
