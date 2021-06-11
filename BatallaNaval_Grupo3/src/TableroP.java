@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 //boat:barco, panel:tablero, columns:columnas 
 
@@ -8,7 +9,7 @@ public class TableroP{
 	private static final int TAMANIO_Y = 10;
 	
 	private Character [][] panel= new Character [TAMANIO_X][TAMANIO_Y];
-	private List<Boat> fleet = new ArrayList<>();
+	private Fleet fleet = new Fleet();
 	
 
 	public TableroP()
@@ -38,9 +39,11 @@ public class TableroP{
 	
 	private void hit (Coordinate c) {		
 		if(validateCoordinate(c)) {
-			if((panel[c.getX()-1][c.getY()-1]) == ' ')
-			{
-				panel[c.getX()-1][c.getY()-1]= 'A';
+			if (existsBoatInCoordinate(c)) {
+				panel[c.getX()-1][c.getY()-1]= '*';
+			}
+			else{
+				panel[c.getX()-1][c.getY()-1] = 'A';
 			}
 		}
 		else
@@ -50,7 +53,9 @@ public class TableroP{
 			
 	}
 
-
+	private boolean existsBoatInCoordinate(Coordinate c) {
+		return fleet.existsBoatInPosition(c);
+	}
 
 	public String print() {
 		StringBuilder sb = new StringBuilder();
@@ -71,5 +76,26 @@ public class TableroP{
 			sb.append("\n");
 		}
 		return sb.toString();
+	}
+
+	public void positionShip()
+	{
+		fleet.getShips().forEach(e->positionShip(e));
+	}
+
+	private void positionShip(Boat e) {
+		Random rand = new Random();
+		int x = rand.nextInt(TAMANIO_X)+1;
+		int y = rand.nextInt(TAMANIO_Y)+1;
+
+		if (Math.random() > 0.5) {
+			System.out.println("Posicion Vertical");
+		}
+		else
+		{
+			System.out.println("Posicion Horizontal");
+		}
+
+
 	}
 }
