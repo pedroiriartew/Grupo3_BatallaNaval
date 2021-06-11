@@ -1,13 +1,42 @@
 
 
 public class Coordinate {
-
-		public int x;
-		public int y;
-		
-		
-		public String toString(int x; int y) {
-			return ("coordenada: "+ x +"-"+y);
-		}
-		
+	
+	private int x;
+	private int y;
+	private boolean isHit = false;
+	
+	public Coordinate(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+	
+	public String toString(int x, int y) {
+		return ("Coordenada: "+ x +"-"+y);
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public boolean isHit() {
+		return isHit;
+	}
+	
+	public void setHit(boolean isHit) {
+		this.isHit = isHit;
+	}
 }

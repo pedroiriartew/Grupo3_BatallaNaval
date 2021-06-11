@@ -4,9 +4,11 @@ import java.util.List;
 //boat:barco, panel:tablero, columns:columnas 
 
 public class TableroP{
+	private static final int TAMANIO_X = 10;
+	private static final int TAMANIO_Y = 10;
 	
-	private Character [][] panel= new Character [10][10];
-	private List<Boat> boats = new ArrayList<>();
+	private Character [][] panel= new Character [TAMANIO_X][TAMANIO_Y];
+	private List<Boat> fleet = new ArrayList<>();
 	
 	
 	//constructor- ya inicio el tablero
@@ -20,18 +22,21 @@ public class TableroP{
 	
 	
 	//c es la coordenada (x,y)
-	private boolean validateCordinate(Coordinate c) {
+	private boolean validateCoordinate(Coordinate c) {
 		return (c.getX()>= 1 && c.getX()<= panel.length) && (c.getY()>= 1 && c.getY()<= panel.length);
 	}
 	
 	private void disparar (Coordinate c) {
-		 if(validateCoordinate(c)) {
-			 if((panel[c.getX()-1][c.getY()-1]) == ' ');
-				 //TODO generar impactos
+
+		if(validateCoordinate(c)) {
+			
+			if((panel[c.getX()-1][c.getY()-1]) == ' ')
+			{
+				//TODO generar impactos
+			}
 		 }
 			
-		}
-	
+	}
 	public String print() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\t");
@@ -50,6 +55,5 @@ public class TableroP{
 			}
 		}
 		return sb.toString();
-	}
 	}
 }
