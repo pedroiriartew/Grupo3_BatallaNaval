@@ -90,6 +90,10 @@ public class TableroP{
 
 		if (Math.random() > 0.5) {
 			System.out.println("Posicion Vertical");
+
+			for (int i = 0; i < e.getSize(); i++) {
+				
+			}
 		}
 		else
 		{
