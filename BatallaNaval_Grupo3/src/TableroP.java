@@ -92,7 +92,7 @@ public class TableroP{
 			System.out.println("Posicion Vertical");
 
 			for (int i = 0; i < e.getSize(); i++) {
-				
+				Coordinate coord = new Coordinate(x, y + i)
 			}
 		}
 		else
