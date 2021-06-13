@@ -37,10 +37,13 @@ public class TableroP{
 	}
 
 	
-	private void hit (Coordinate c) {		
+	private String hit (Coordinate c) {	//Quizás esto cambie a boolean
+		Ship ship = null;	
 		if(validateCoordinate(c)) {
 			if (existsBoatInCoordinate(c)) {
 				panel[c.getX()-1][c.getY()-1]= '*';
+				ship = fleet.getShipAtCoordinate(c);
+				ship.setHit(c);
 			}
 			else{
 				panel[c.getX()-1][c.getY()-1] = 'A';
@@ -50,7 +53,11 @@ public class TableroP{
 		{
 			throw new RuntimeException("La coordenada no está dentro del rango esperado.");
 		}
-			
+
+		if (ship == null)
+			return "Agua";
+		else
+			return ship.getShipState();
 	}
 
 	private boolean existsBoatInCoordinate(Coordinate c) {
@@ -80,26 +87,51 @@ public class TableroP{
 
 	public void positionShip()
 	{
-		fleet.getShips().forEach(e->positionShip(e));
+		fleet.getShips().forEach(s->assignCoordinatesToShip(s));
 	}
 
-	private void positionShip(Boat e) {
+	private void assignCoordinatesToShip(Ship s) {
 		Random rand = new Random();
-		int x = rand.nextInt(TAMANIO_X)+1;
-		int y = rand.nextInt(TAMANIO_Y)+1;
+		List<Coordinate> coordList = new ArrayList<>();
+		
+		while(s.getSize() > coordList.size()){
+			int x = rand.nextInt(TAMANIO_X);
+			int y = rand.nextInt(TAMANIO_Y);
 
-		if (Math.random() > 0.5) {
-			System.out.println("Posicion Vertical");
+			if (x + s.getSize() < TAMANIO_X && y + s.getSize() < TAMANIO_Y){
+				if (Math.random() > 0.5) {
+					System.out.println("Posicion Vertical");
+					
+					for (int i = 0; i < s.getSize(); i++) {
+						Coordinate coord = new Coordinate(x, y + i);
+						if (validateCoordinate(coord) && !fleet.existsBoatInPosition(coord)) {
+							coordList.add(coord);
+						}
+						else{
+							coordList = new ArrayList<>();
+							break;
+						}
+					}
+				}
+				else
+				{
+					System.out.println("Posicion Horizontal");
 
-			for (int i = 0; i < e.getSize(); i++) {
-				Coordinate coord = new Coordinate(x, y + i)
+										
+					for (int i = 0; i < s.getSize(); i++) {
+						Coordinate coord = new Coordinate(x+ 1, y);
+						if (validateCoordinate(coord) && !fleet.existsBoatInPosition(coord)) {
+							coordList.add(coord);
+						}
+						else{
+							coordList = new ArrayList<>();
+							break;
+						}
+					}
+				}
 			}
 		}
-		else
-		{
-			System.out.println("Posicion Horizontal");
-		}
 
-
+		coordList.forEach(c->s.addCoordinate(c));
 	}
 }

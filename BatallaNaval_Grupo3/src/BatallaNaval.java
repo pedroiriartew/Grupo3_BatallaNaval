@@ -72,7 +72,6 @@ public class BatallaNaval {
     }
 
     // private boolean playerMissedShot(Usuario player) {
-
     //     return player.disparar()? true : false;
     // }
 
