@@ -102,36 +102,48 @@ public class TableroP{
 				if (Math.random() > 0.5) {
 					System.out.println("Posicion Vertical");
 					
-					for (int i = 0; i < s.getSize(); i++) {
-						Coordinate coord = new Coordinate(x, y + i);
-						if (validateCoordinate(coord) && !fleet.existsBoatInPosition(coord)) {
-							coordList.add(coord);
-						}
-						else{
-							coordList = new ArrayList<>();
-							break;
-						}
-					}
+					coordList = createVerticalShipPosition(s, coordList, x, y);
 				}
 				else
 				{
-					System.out.println("Posicion Horizontal");
-
-										
-					for (int i = 0; i < s.getSize(); i++) {
-						Coordinate coord = new Coordinate(x+ 1, y);
-						if (validateCoordinate(coord) && !fleet.existsBoatInPosition(coord)) {
-							coordList.add(coord);
-						}
-						else{
-							coordList = new ArrayList<>();
-							break;
-						}
-					}
+					System.out.println("Posicion Horizontal");										
+					coordList = createHorizontalShipPosition(s, coordList, x, y);
 				}
 			}
 		}
 
 		coordList.forEach(c->s.addCoordinate(c));
+	}
+
+	/*
+		Ambas funciones de Create...ShipPosition hacen en esencia lo mismo, por lo que es probable que haya que refactorizarlas
+		
+	*/
+	private List<Coordinate> createHorizontalShipPosition(Ship s, List<Coordinate> coordList, int x, int y) {
+		for (int i = 0; i < s.getSize(); i++) {
+			Coordinate coord = new Coordinate(x+ i, y);
+			if (validateCoordinate(coord) && !fleet.existsBoatInPosition(coord)) {
+				coordList.add(coord);
+			}
+			else{
+				coordList = new ArrayList<>();
+				break;
+			}
+		}
+		return coordList;
+	}
+
+	private List<Coordinate> createVerticalShipPosition(Ship s, List<Coordinate> coordList, int x, int y) {
+		for (int i = 0; i < s.getSize(); i++) {
+			Coordinate coord = new Coordinate(x, y + i);
+			if (validateCoordinate(coord) && !fleet.existsBoatInPosition(coord)) {
+				coordList.add(coord);
+			}
+			else{
+				coordList = new ArrayList<>();
+				break;
+			}
+		}
+		return coordList;
 	}
 }

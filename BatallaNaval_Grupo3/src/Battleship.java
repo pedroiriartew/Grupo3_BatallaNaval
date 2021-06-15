@@ -9,7 +9,5 @@ public class Battleship extends Ship {
     @Override
     public String getName() {
         return NAME;
-    }
-
-    
+    }    
 }
