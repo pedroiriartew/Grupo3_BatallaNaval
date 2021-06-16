@@ -8,12 +8,15 @@ public class TableroP{
 	private static final int TAMANIO_X = 10;
 	private static final int TAMANIO_Y = 10;
 	
-	private Character [][] panel= new Character [TAMANIO_X][TAMANIO_Y];
-	private Fleet fleet = new Fleet();
+	private Character [][] panel;
+	private Fleet fleet;
 	
 
 	public TableroP()
 	{
+		this.panel = new Character [TAMANIO_X][TAMANIO_Y];
+		this.fleet = new Fleet();
+		positionShip();
 		initializePanel();
 	}
 
@@ -41,12 +44,12 @@ public class TableroP{
 		Ship ship = null;	
 		if(validateCoordinate(c)) {
 			if (existsBoatInCoordinate(c)) {
-				panel[c.getX()-1][c.getY()-1]= '*';
+				panel[c.getX()][c.getY()]= '*';
 				ship = fleet.getShipAtCoordinate(c);
 				ship.setHit(c);
 			}
 			else{
-				panel[c.getX()-1][c.getY()-1] = 'A';
+				panel[c.getX()][c.getY()] = 'A';
 			}
 		}
 		else
