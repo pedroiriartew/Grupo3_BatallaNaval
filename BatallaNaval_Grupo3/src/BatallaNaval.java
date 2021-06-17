@@ -2,8 +2,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BatallaNaval {
-    // private Usuario player1;
-    // private Usuario player2;
+    private User player1;
+    private Computer computer1;
+    private Computer computer2;
 
     Scanner scan = new Scanner(System.in);
     int option = -1;
@@ -13,22 +14,24 @@ public class BatallaNaval {
         while(option != 0)
         {
             System.out.println("Ingrese el modo de juego.");
-            System.out.println("\n1)Jugador contra IA");
-            System.out.println("\n2)IA contra IA");
+            System.out.println("\n1) Jugador contra IA");
+            System.out.println("\n2) IA contra IA");
 
             option = scan.nextInt();
-
+            scan.nextLine();
+            
             switch (option) {
                 case 1:
-
-                    //startGame(new Jugador(), new Computadora());//Nombre Provisional
+                	System.out.println("Ingrese su nombre de usuario");
+                	String name= scan.nextLine();
+                    startGame(new Player(name), new Computer("PC"));  
 
                     //Acá quizás vaya una función que permita volver al menu luego de finalizada la partida
                     break;
             
                 case 2:
 
-                    //startGame(new Computadora(), new Computadora());//Nombre Provisional
+                    startGame(new Computer("PC-1"), new Computer("PC-2"));
                     
                     //Acá quizás vaya una función que permita volver al menu luego de finalizada la partida
                     break;
@@ -40,15 +43,15 @@ public class BatallaNaval {
         }
     }
 
-    private void startGame()//Usuario player1, Usuario player2
-    {
-        // this.player1 = player1;
-        // this.player2 = player2;
+    private void startGame(Player player1, Computer player2){
+    
+        this.player1 = player1;
+        this.computer1 = player2;
         boolean winner = false;
         boolean missedShot = false;
 
         while (!winner) {
-            System.out.println("Turno jugador 1"); // o bien ponemos el nombre
+            System.out.println("Turno de "+ player1.getName()); 
             while (!missedShot) {
                 //missedShot = playerMissedShot(player1);
 
@@ -57,7 +60,7 @@ public class BatallaNaval {
                 // }
             }
 
-            System.out.println("Turno jugador 2"); // o bien ponemos el nombre
+            System.out.println("Turno de "+ player2.getName()); // o bien ponemos el nombre
             missedShot = false;
 
             while (!missedShot && !winner)//Acá la condición cambia porque es necesario saber si el jugador1 ganó
@@ -71,6 +74,13 @@ public class BatallaNaval {
         }
     }
 
+    private void startGame(Computer player1, Computer player2){
+    	this.computer1 = player1;
+        this.computer2 = player2;
+        boolean winner = false;
+        boolean missedShot = false;
+    }
+    
     // private boolean playerMissedShot(Usuario player) {
 
     //     return player.disparar()? true : false;

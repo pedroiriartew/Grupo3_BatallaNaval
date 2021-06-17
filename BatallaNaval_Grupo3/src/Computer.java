@@ -3,8 +3,8 @@ import java.util.Random;
 public class Computer extends User{
 
 	//constructor de la computadora
-		public Computer() {
-			this.name= "PC";
+		public Computer(String pc) {
+			this.name= pc;						//puede que sea pc1 o pc2
 			mainBoard= new TableroP(); 			//tablero se inicializa, crea la flota y la coloca en tablero
 		
 		}
